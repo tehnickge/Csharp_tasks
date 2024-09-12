@@ -5,8 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Unit4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="800" Width="1000">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+
+        <DataGrid x:Name="PersonsDataGrid" AlternatingRowBackground="Gray" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" AutoGenerateColumns="False" Grid.Row="0" Grid.Column="0" Loaded="PersonsDataGrid_Loaded">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Work type" IsReadOnly="True" Binding="{Binding Path=WorkType}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="ContainerDataGrid" AlternatingRowBackground="Gray" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" AutoGenerateColumns="False" Grid.Row="0" Grid.Column="1" Loaded="ContainerDataGrid_Loaded">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Number" IsReadOnly="True" Binding="{Binding Path=Number}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Item" IsReadOnly="True" Binding="{Binding Path=Item}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="TaskDataGrid" AlternatingRowBackground="Gray" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" AutoGenerateColumns="False" Grid.Row="0" Grid.Column="2" Loaded="TaskDataGrid_Loaded">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Title" IsReadOnly="True" Binding="{Binding Path=Title}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Description" IsReadOnly="True" Binding="{Binding Path=Description}"></DataGridTextColumn>
+                <DataGridTextColumn Header="DeadLine" IsReadOnly="True" Binding="{Binding Path=DeadLine}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Status" IsReadOnly="True" Binding="{Binding Path=Status}"></DataGridTextColumn>
+                <DataGridTextColumn Header="FromNumber" IsReadOnly="True" Binding="{Binding Path=FromNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ToNumber" IsReadOnly="True" Binding="{Binding Path=ToNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Item" IsReadOnly="True" Binding="{Binding Path=Item}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="HeadPerson" IsReadOnly="True" Binding="{Binding Path=WorkType}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox x:Name="PersonNameInput" HorizontalAlignment="Left" Grid.Column="0" TextWrapping="Wrap" Text="" Margin="10,8,0,211" Width="180" Grid.Row="1"/>
+        <TextBox x:Name="PersonTypeWorkInput" HorizontalAlignment="Left" Grid.Column="0" TextWrapping="Wrap" Text="" Margin="10,61,0,160" Width="180" Grid.Row="1"/>
+        <Button x:Name="addPerson" Grid.Column="0" Margin="215,26,48,204" Grid.Row="1" Click="addPerson_Click">add</Button>
+
+        <TextBox x:Name="ItemNumber" Grid.Row="1" Grid.Column="1" Text="number" Margin="27,19,177,211" />
+        <TextBox x:Name="ItemItem" Grid.Row="1" Grid.Column="1" Text="number" Margin="27,61,177,169" />
+        <Button x:Name="addItem" Margin="181,33,92,194" Grid.Column="1" Grid.Row="1" Click="addItem_Click">add</Button>
+
+
+        <TextBox x:Name="TaskFrom" Grid.Column="2" Text="from" Margin="10,8,167,219" Grid.Row="1"/>
+        <TextBox x:Name="TaskTo" Grid.Column="2" Text="to" Margin="10,51,167,178" Grid.Row="1"/>
+        <TextBox x:Name="TaskItem" Grid.Column="2" Text="item" Margin="10,89,167,140" Grid.Row="1"/>
+        <Button x:Name="addTask" Grid.Column="2" Margin="110,148,130,76" Grid.Row="1" Click="addTask_Click">add</Button>
+        <Button x:Name="MakeWork" Click="MakeWork_Click" Grid.Column="1" Grid.Row="2">MAKE WORK</Button>
     </Grid>
 </Window>

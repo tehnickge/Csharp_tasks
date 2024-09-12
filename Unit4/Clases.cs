@@ -12,11 +12,11 @@ using System.Net.NetworkInformation;
 //описание, статус выполнения, ответственного логиста и срок 
 //выполнения. Реализовать функциональность добавления новых 
 //задач, назначения ответственных, изменения статусов и 
-//отображения задач по логисту.
-//с интерфейсом
+//отображения задач по логисту с интерфейсом
 
 namespace Unit4
 {
+
     public interface ITask
     {
         string Title { get; set; }
@@ -28,17 +28,20 @@ namespace Unit4
         string Item { get; set; }
         IPerson HeadPerson { get; set; }
     }
-
+    public interface IContainer
+    {
+        string Number { get; set; }
+        string Item { set; get; }
+    }
     public interface IPerson
     {
         string Name { get; set; }
         string WorkType { get; set; }
     }
-
     public interface IFactory
     {
         List<ITask> tasks { get; set; }
-        List<(string number, string item)> container { get; set; }
+        List<IContainer> container {  get; set; }
         List<IPerson> persons { get; set; }
         void AddTask(string title, string description, string deadLine, string status, string fromNumber, string toNumber, string item, IPerson person);
         void AddPerson(string name, string workType);
@@ -55,12 +58,27 @@ namespace Unit4
     {
         IPerson FactoryMethod(string name, string worktype);
     }
+    public interface IContainerFactory
+    {
+        IContainer FactoryMethod(string name, string item);
+    }
     public class FactoryPerson : IFactoryPerson
     {
         public IPerson FactoryMethod(string name, string worktype)
         {
             return new Person(name, worktype);
         }
+    }
+
+    public class Container : IContainer
+    {
+        public Container(string number, string item)
+        {
+            Number = number; 
+            Item = item;
+        }
+        public string Number { get; set; }
+        public string Item { get; set; }
     }
 
     public class FactoryTask : IFactoryTask
@@ -111,17 +129,49 @@ namespace Unit4
         public string WorkType { get; set; }
     }
 
+    public class TempClass
+    {
+        public TempClass(string title, string description, string deadLine, string status, string fromNumber, string toNumber, string item, string name, string workType)
+        {
+            Title = title;
+            Description = description;
+            DeadLine = deadLine;
+            Status = status;
+            FromNumber = fromNumber;
+            ToNumber = toNumber;
+            Item = item;
+            Name = name;
+            WorkType = workType;
+        }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string DeadLine { get; set; }
+        public string Status { get; set; }
+        public string FromNumber { get; set; }
+        public string ToNumber { get; set; }
+        public string Item { get; set; }
+        public string Name { get; set; }
+        public string WorkType { get; set; }
+    }
+
+    public class ContainerFactory : IContainerFactory
+    {
+        public IContainer FactoryMethod(string number, string item) 
+        {
+            return new Container(number, item);
+        }
+    }
     public class Factory : IFactory
     {
         public Factory()
         {
-            container = new List<(string number, string item)>();
+            container = new List<IContainer>();
             persons = new List<IPerson>();
             tasks = new List<ITask>();
             Console.WriteLine("Производство запущено");
         }
         public List<ITask> tasks { get; set; }
-        public List<(string number, string item)> container { get; set; }
+        public List<IContainer> container { get; set; }
         public List<IPerson> persons { get; set; }
         public void AddTask(string title, string description, string deadLine, string status, string fromNumber, string toNumber, string item, IPerson person)
         {
@@ -135,9 +185,11 @@ namespace Unit4
             persons.Add(factoryPerson.FactoryMethod(name, workType));
             Console.WriteLine("Работник добавлен");
         }
-        public void AddItem(string number, string title)
+        public void AddItem(string number, string item)
         {
-            container.Add((number, title));
+            ContainerFactory cont = new ContainerFactory();
+
+            container.Add(cont.FactoryMethod(number, item));
             Console.WriteLine("Предмет добавлен");
         }
         public void MakeWork()
@@ -146,9 +198,9 @@ namespace Unit4
             for (int i = 0; i < tasks.Count; i++)
             {
                 if (tasks[i].Status != "ready to work") { Console.WriteLine("нет задач"); continue; }
-                var temp = container.Find(item => item.number == tasks[i].FromNumber && item.item == tasks[i].Item);
+                var temp = container.Find(item => item.Number == tasks[i].FromNumber && item.Item == tasks[i].Item);
                 Console.WriteLine($"предмет {temp} найден");
-                container.Remove(container.Find(item => item.number == tasks[i].FromNumber && item.item == tasks[i].Item));
+                container.Remove(container.Find(item => item.Number == tasks[i].FromNumber && item.Item == tasks[i].Item));
                 this.AddItem(tasks[i].ToNumber, tasks[i].Item);
                 Console.WriteLine($"предмет перемещен");
                 tasks[i].Status = "finish";
