@@ -48,6 +48,8 @@
     <Compile Include="Unit1.cs" />
     <Compile Include="Unit2.cs" />
     <Compile Include="Unit3.cs" />
+    <Compile Include="Unit5.cs" />
+    <Compile Include="Unit6.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

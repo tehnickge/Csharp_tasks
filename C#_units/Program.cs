@@ -28,6 +28,10 @@ namespace C_units
                     factory.AddTask("add change", "any words", "22.04.2012", "ready to work", "1", "2", "jopa", factory.persons[0]);
                     factory.MakeWork();
                     break;
+                case 5:
+                    Unit5 unit5 = new Unit5();
+
+                    break;
                 default:
                     Console.WriteLine("Error");
                     break;
