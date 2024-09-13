@@ -30,7 +30,10 @@ namespace C_units
                     break;
                 case 5:
                     Unit5 unit5 = new Unit5();
-
+                    break;
+                case 6:
+                    Unit6 unit6 = new Unit6(5,10);
+                    unit6.mes();
                     break;
                 default:
                     Console.WriteLine("Error");
