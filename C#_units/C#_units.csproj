@@ -50,6 +50,8 @@
     <Compile Include="Unit3.cs" />
     <Compile Include="Unit5.cs" />
     <Compile Include="Unit6.cs" />
+    <Compile Include="Unit7.cs" />
+    <Compile Include="Unit8.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

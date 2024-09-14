@@ -1,7 +1,9 @@
-﻿using C_units;
+﻿using C__units;
+using C_units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,7 +35,63 @@ namespace C_units
                     break;
                 case 6:
                     Unit6 unit6 = new Unit6(5,10);
-                    unit6.mes();
+                    unit6.mes(5,10);
+                    break;
+                case 7:
+                    Unit7 unit7 = new Unit7();
+                    Type type = unit7.GetType();
+                    var methods = type.GetMethods();
+                    var fields = type.GetFields();
+                    var constructurs = type.GetConstructors();
+                    var atributes = type.GetCustomAttributes();
+                    Console.WriteLine("Методы с атрибутами");
+                    foreach(var method in methods)
+                    {
+                        method.GetCustomAttribute(typeof(CustomAtribute));
+
+                        if (method.GetCustomAttribute(typeof(CustomAtribute)) != null)
+                        {
+                            Console.WriteLine(method);
+                            Console.WriteLine(((CustomAtribute)method.GetCustomAttribute(typeof(CustomAtribute))).I);
+                        }
+                    }
+                    Console.WriteLine("_____________");
+                    Console.WriteLine("Все поля класса");
+                    foreach (var field in fields)
+                    {
+
+                        Console.WriteLine(field);
+                    }
+                    Console.WriteLine("_____________");
+                    Console.WriteLine("Конструкторы");
+                    foreach (var constructur in constructurs)
+                    {
+                        Console.WriteLine(constructur);
+                    }
+                    Console.WriteLine("_____________");
+                    Console.WriteLine("Атрибуты класса");
+                    foreach (var atribute in atributes)
+                    {
+                        Console.WriteLine(((CustomAtribute)atribute).I);
+                        Console.WriteLine((CustomAtribute)atribute);
+                    }
+                    var met = type.GetMethod("CheckType");
+                    Console.WriteLine("_____________");
+                    Console.WriteLine("рефлекшен вызовы метода");
+                    met?.Invoke(unit7, parameters: null);   
+                    break;
+                case 8:
+                    try
+                    {
+                        Unit8 unit8 = new Unit8();
+
+                    }
+                    catch (Exception ex) 
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    
+                    
                     break;
                 default:
                     Console.WriteLine("Error");
