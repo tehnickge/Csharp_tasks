@@ -1,11 +1,12 @@
-﻿using C__units;
-using C_units;
+﻿using C_units;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace C_units
 {
@@ -19,9 +20,9 @@ namespace C_units
                     Unit1 unit1 = new Unit1();
                     int value = unit1.getCountWordInText();
                     Console.WriteLine(value);
-                    break; 
+                    break;
                 case 2:
-                    Unit2 unit2 = new Unit2(5,5,2);
+                    Unit2 unit2 = new Unit2(5, 5, 2);
                     break;
                 case 3:
                     Factory factory = new Factory();
@@ -34,8 +35,8 @@ namespace C_units
                     Unit5 unit5 = new Unit5();
                     break;
                 case 6:
-                    Unit6 unit6 = new Unit6(5,10);
-                    unit6.mes(5,10);
+                    Unit6 unit6 = new Unit6(5, 10);
+                    unit6.mes(5, 10);
                     break;
                 case 7:
                     Unit7 unit7 = new Unit7();
@@ -45,7 +46,7 @@ namespace C_units
                     var constructurs = type.GetConstructors();
                     var atributes = type.GetCustomAttributes();
                     Console.WriteLine("Методы с атрибутами");
-                    foreach(var method in methods)
+                    foreach (var method in methods)
                     {
                         method.GetCustomAttribute(typeof(CustomAtribute));
 
@@ -78,20 +79,65 @@ namespace C_units
                     var met = type.GetMethod("CheckType");
                     Console.WriteLine("_____________");
                     Console.WriteLine("рефлекшен вызовы метода");
-                    met?.Invoke(unit7, parameters: null);   
+                    met?.Invoke(unit7, parameters: null);
                     break;
                 case 8:
-                    try
+                    try { Unit8 unit8 = new Unit8(); }
+                    catch (Exception ex) { Console.WriteLine(ex.Message); }
+                    break;
+                case 9:
+                    Random rnd = new Random();
+                    List<Product> products = new List<Product>();
+                    Dictionary<Product, string> dic = new Dictionary<Product, string>();
+                    BD bd = new BD(dic);
+                    List<OrderLine> orderLines = new List<OrderLine>();
+                    Buyer buyer = new Buyer("Krot","nora",rnd.NextDouble() * 24);
+                    for (int i = 0; i < 10; i++)
                     {
-                        Unit8 unit8 = new Unit8();
+                        products.Add(new Product($"Product{i}", i * 50));
+                        dic.Add(products[i], $"price {products[i].Price} name {products[i].Name}");
+                    }
+                    for (int i = 0; i < 5; i++)
+                    {
+                        orderLines.Add(new OrderLine(products[i], rnd.Next(24) + 1));
+                    }
+                    Order order = new Order(1, buyer, orderLines);
 
-                    }
-                    catch (Exception ex) 
+                    Console.WriteLine(buyer.Discount);
+                    Console.WriteLine($"Cost: {order.Cost}, id{order.OrderNumber}, {order.Buyer.Name}, {order.Discount}%");
+                    foreach(var line in order.Lines)
+                    { Console.WriteLine($"c {line.Amount}, p {line.Product.Name}, totalPrice: {line.Product.Price * line.Amount}"); }
+                    var json = Order.ToJSON(order);
+                    var path = "C:\\Users\\Tehnick\\source\\repos\\C#_units\\C#_units\\json.json";
+                    Order.WriteFile(json, path);
+                    break;
+                case 10:
+                    string filePath = "C:\\Users\\Tehnick\\source\\repos\\C#_units\\C#_units\\Products.txt";
+                    List<string> fileStrings = Unit10.ReadFileOrMake(filePath);
+                    var stirngs =  Unit10.StringParser(fileStrings);
+                    List<Unit10> units = new List<Unit10>();
+                    foreach (var str in stirngs)
                     {
-                        Console.WriteLine(ex.Message);
+                        try
+                        { 
+                            units.Add(new Unit10(str.Item1, str.Item2));
+                        } 
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        
                     }
-                    
-                    
+                    foreach (var unit in units)
+                    {
+                        Console.WriteLine($"count: {unit.Weight}, sc: {unit.SWeight}, title: {unit.Title}");
+                    }
+                    units.Sort();
+                    Console.WriteLine("=============");
+                    foreach (var unit in units)
+                    {
+                        Console.WriteLine($"count: {unit.Weight}, sc: {unit.SWeight}, title: {unit.Title}");
+                    }
                     break;
                 default:
                     Console.WriteLine("Error");

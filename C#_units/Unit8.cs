@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C__units
+namespace C_units
 {
     internal class Unit8
     {
