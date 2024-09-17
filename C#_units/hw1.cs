@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace C_units
 {
-    internal class hw1
+    public class HW1
     {
+        public HW1()
+        {
+            Str = Console.ReadLine();
+
+        }
+
+        public string Str {  get; set; }
     }
 }

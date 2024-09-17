@@ -46,11 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="hw1.cs" />
+    <Compile Include="HW1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit1.cs" />
     <Compile Include="Unit10.cs" />
+    <Compile Include="Unit11.cs" />
     <Compile Include="Unit2.cs" />
     <Compile Include="Unit3.cs" />
     <Compile Include="Unit5.cs" />

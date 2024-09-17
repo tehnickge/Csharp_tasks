@@ -140,10 +140,41 @@ namespace C_units
                     }
                     break;
                 case 11:
+                    List<Unit11> listUnit11 =  Unit11.GenerateListPoints(20);
+                    foreach(var unit in listUnit11)
+                    {
+                        Console.WriteLine(unit.ToString());
+                    }
+                    listUnit11.Sort(new UntiComparerXAndY());
+                    Console.WriteLine("------------XAndY------------");
+                    foreach (var unit in listUnit11)
+                    {
+                        Console.WriteLine(unit.ToString());
+                    }
+                    Console.WriteLine("--------------X-----------");
+                    listUnit11.Sort(new UntiComparerX());
+                    foreach (var unit in listUnit11)
+                    {
+                        Console.WriteLine(unit.ToString());
+                    }
+                    Console.WriteLine("--------------Y-----------");
+                    listUnit11.Sort(new UntiComparerY());
+                    foreach (var unit in listUnit11)
+                    {
+                        Console.WriteLine(unit.ToString());
+                    }
+                    Console.WriteLine("-------------XEqualY----------");
+                    listUnit11.Sort(new UntiComparerXEqualY());
+                    foreach (var unit in listUnit11)
+                    {
+                        Console.WriteLine(unit.ToString());
+                    }
+
                     break;
                 case 12:
                     break;
                 case 13:
+                    HW1 hW1 = new HW1();
                     break;
                 case 14:
                     break;
