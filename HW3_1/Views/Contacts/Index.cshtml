@@ -8,7 +8,7 @@
 <h1>Aboba </h1>
 
 <div class="form-contacts">
-    <form method="post" asp-asp-controller="Conracts" asp-action="Check">
+    <form id="contactForm" method="post" asp-controller="Contacts" asp-action="Check">
         <label asp-for="Id"></label>
         <input asp-for="Id" />
         <span asp-validation-for="Id"></span>
@@ -20,11 +20,41 @@
         <label asp-for="Message"></label>
         <input asp-for="Message" />
         <span asp-validation-for="Message"></span>
-        <input type="submit" value="отправит"></input>
+        <input type="button" id="submitForm" value="отправить"></input>
     </form>
-    
     
     <div class="test_table">
 
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            
+            $('#submitForm').click(function () {
+                var formData = $('#contactForm').serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Check", "Contacts")',
+                    data: formData,
+                    success: function (response) {
+                        console.log(response.data);
+                        if (response.success) {
+                            $('.test_table').append('<div>' + response.data.title + ': ' + response.data.message + '</div>');
+                        } 
+                        else 
+                        {
+                            alert('Ошибка: Некорректные данные');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Status: " + status);
+                        console.error("Error: " + error);
+                        alert('Произошла ошибка при отправке данных: ' + xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
 </div>

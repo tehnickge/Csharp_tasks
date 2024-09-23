@@ -9,15 +9,18 @@ namespace HW3_1.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
-        public IActionResult Check(Contacts contacts)
+        public JsonResult Check(Contacts model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return Redirect("/");
+                return Json(new { success = true, data = model });
             }
-            return View("Index");
+            else
+            {
+                return Json(new { success = false });
+            }
         }
     }
 }
