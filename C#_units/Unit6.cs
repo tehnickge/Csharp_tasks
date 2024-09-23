@@ -17,7 +17,7 @@ namespace C_units
             Random rand = new Random();
             for (int i = 0; i < H; i++)
             {
-                for(int j = 0; j < W;  j++)
+                for(int j = 0; j < W; j++)
                 {
                     matrix[i,j] = rand.Next(55);
                     Console.Write("{0,-3}",matrix[i,j]);
