@@ -6,7 +6,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
 
 namespace C_units
 {
@@ -174,9 +177,22 @@ namespace C_units
                 case 12:
                     break;
                 case 13:
-                    HW1 hW1 = new HW1();
+                    Console.WriteLine("Введите математическое выражение:");
+                    string expression = Console.ReadLine();
+
+                    try
+                    {
+                        double result = MathStack.EvaluateExpression(expression);
+                        Console.WriteLine($"{expression} = {result}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Ошибка: {ex.Message}");
+                    }
                     break;
                 case 14:
+                    HttpServer server = new HttpServer(49211, false);
+                    server.Start();
                     break;
                 case 15:
                     break;
@@ -199,3 +215,5 @@ namespace C_units
         }
     }
 }
+
+

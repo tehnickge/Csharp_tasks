@@ -25,7 +25,6 @@ namespace C_units
             for (int i = 0; i < text.Length; i++)
             {
                 dates.Add(DateTime.Parse(text[i]));
-
             }
             uint counter = 0;
             for (int i = 0; i < dates.Count; i++)
@@ -34,7 +33,6 @@ namespace C_units
                 {
                     counter++;
                 }
-                
             }
             Console.WriteLine(counter);
         }

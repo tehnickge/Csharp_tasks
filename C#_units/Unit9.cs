@@ -35,7 +35,7 @@ namespace C_units
     }
 
     [Serializable]
-    public class  BD 
+    public class BD 
     { 
         public BD() 
         {
@@ -50,8 +50,6 @@ namespace C_units
         {
             ProductInfo.Add(product, description);
         }
-
-
     }
     [Serializable]
     public class OrderLine
@@ -101,18 +99,7 @@ namespace C_units
             FileInfo fileInf = new FileInfo(filePath);
             File.WriteAllText(filePath, str);
         }
-        public static List<(string, string)> StringParser(List<string> list) 
-        {
-            var objectList = new List<(string, string)>();
-
-            foreach (string str in list)
-            {
-                string first = "1";
-                string second = "1";
-                objectList.Add((first, second));
-            }
-            return (objectList);
-        }
+       
     }
 
 }
