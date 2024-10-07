@@ -175,6 +175,33 @@ namespace C_units
 
                     break;
                 case 12:
+                    int gameStatus = 0;
+                    do
+                    {
+                        Console.Clear();
+                        Unit12.DisplayBoard();
+                        Unit12.PlayerMove();
+                        gameStatus = Unit12.CheckWin();
+
+                        if (gameStatus == 1)
+                        {
+                            Console.Clear();
+                            Unit12.DisplayBoard();
+                            Console.WriteLine($"Игрок {Unit12.currentPlayer} выиграл!");
+                        }
+                        else if (gameStatus == -1)
+                        {
+                            Console.Clear();
+                            Unit12.DisplayBoard();
+                            Console.WriteLine("Ничья!");
+                        }
+
+                        Unit12.moveCount++;
+                        Unit12.SwitchPlayer();
+                    }
+                    while (gameStatus == 0);
+
+                    Console.ReadLine();
                     break;
                 case 13:
                     Console.WriteLine("Введите математическое выражение:");
